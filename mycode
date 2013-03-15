@@ -1,0 +1,89 @@
+//**********   编译环境VC6.0 ************//
+
+#include<stdio.h>
+#include<windows.h>
+#include<conio.h>
+#include<graphics.h>
+
+//________________________________________________________________________________________________________________
+
+extern char s_1[]={"☆ \n"};
+extern char s_2[]={"☆ \n"};
+extern char s_3[]={"☆ \n"};
+extern char s_4[]={"☆ \n"};
+extern char s_5[]={"☆ \n"};
+extern char s_6[]={"☆ \n"};
+extern char s_7[]={"☆ \n"};
+extern char s_8[]={"☆ \n"};
+extern char s_9[]={"☆ \n "};
+extern char s_10[]={"☆ \n "};
+extern char s_11[]={"☆ \n  "};
+extern char s_12[]={"☆ \n "};
+extern char s_13[]={"☆ \n "};
+extern char s_14[]={"☆ \n "};
+extern char s_15[]={"                                                                仓央嘉措\n "};
+extern char * ssum[]={s_1,s_2,s_3,s_4,s_5,s_6,s_7,s_8,s_9,s_10,s_11,s_12,s_13,s_14,s_15};
+//________________________________________________________________________________________________________________
+void delay(int N)
+{
+    int f=0;
+    while(f<N){
+
+          f=f+1;
+          f=f-1;
+          f=f+1;
+    }
+}
+void main()
+{
+    float H, S, L;
+    initgraph(700, 480);    //函数用于初始化绘图环境
+
+// *****画渐变的天空(通过亮度逐渐增加)***** //
+    H = 190;    // 色相
+    S = 1;      // 饱和度
+    L = 0.7f;   // 亮度
+    for(int y = 0; y < 480; y++)
+    {
+        L += 0.0005f;
+        setcolor( HSLtoRGB(H, S, L) );
+        line(0, y, 699, y);
+    }
+
+// *****画彩虹(通过色相逐渐增加)***** //
+    H = 0;
+    S = 1;
+    L = 0.5f;
+    setlinestyle(PS_SOLID, NULL, 2);    // 设置线宽为 2
+    for(int r = 400; r > 344; r--){
+        H += 5;
+        setcolor( HSLtoRGB(H, S, L) );
+        circle(450, 400, r);
+        delay(21474830);
+    }
+// ******** 画太阳 *******//
+
+    H = 5;
+    S = 1;
+    L = 0.5f;
+    setlinestyle(PS_SOLID, NULL, 2);    // 设置线宽为 2
+    for(int r2 = 40; r2 > 0; r2--){
+        setcolor( HSLtoRGB(H, S, L) );
+        circle(50, 50, r2);
+        delay(21474830);
+    }
+//*********** 以上为背景设置 ***************//
+// *********** 输出要说的话 *************** //
+         RECT R = {380, 120, 700, 480};
+         setbkmode(TRANSPARENT);    // 输出字体的背景是透明的。
+         setcolor(GREEN);
+         drawtext("★ 一 世 ★", &R, DT_LEFT );       //在 R 指定位置输出，左对齐
+         delay(214748325);
+         for(int i=1;i<16;i++){          //为要输出的行数
+                RECT R = {240, (140+20*i), 700, 480};
+                drawtext(*(ssum+i-1), &R, DT_LEFT);
+                delay(214748325);
+        }
+        getch();
+    closegraph();
+}
